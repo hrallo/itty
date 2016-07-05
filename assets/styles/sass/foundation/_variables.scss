@@ -1,0 +1,42 @@
+////////////
+// colors //
+////////////
+
+$black: #000000;
+$white: #ffffff;
+
+$colors: (
+  black: $black,
+  white: $white
+);
+
+$classes: 'color' 'background';
+
+@mixin colorclasses($color_val, $color_hex, $type) {
+  @each $current_class in $classes {
+    .#{$current_class}_#{$color_val} {
+      #{$current_class}: #{$color_hex};
+    }
+  }
+}
+
+@each $key, $value in $colors {
+  @include colorclasses($key, $value, color);
+}
+
+@each $key, $value in $colors {
+  @include colorclasses($key, $value, background);
+}
+
+///////////////////
+// media queries //
+///////////////////
+
+$gt-xs: 600px;
+$gt-sm: 960px;
+$gt-md: 1280px;
+$gt-lg: 1920px;
+// @media (min-width: $gt-xs) {}
+// @media (min-width: $gt-sm) {}
+// @media (min-width: $gt-md) {}
+// @media (min-width: $gt-lg) {}
