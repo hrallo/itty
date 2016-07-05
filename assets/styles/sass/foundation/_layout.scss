@@ -1,0 +1,126 @@
+
+// Spacing Mixins and Utility Classes
+// Use these to add margins or paddings to any element.
+// It is helpful to use these utilities instead of writing a custom size for each element for consistency and keeping DRY sscss.
+// All size units are based off 10px to correspond with the grid in the design.
+
+$grid_space: 10px;
+$grid-space-xxs: $grid_space/2;
+$grid_space-xs: $grid_space;
+$grid_space-sm: $grid_space * 2;
+$grid_space-md: $grid_space * 3;
+$grid_space-lg: $grid_space * 4;
+$grid_space-xl: $grid_space * 5;
+$grid_space-xxl: $grid_space * 6;
+
+
+// Store our spacings in a scss map with their identifiers (used in classes)
+$spacing: (
+    xxs: $grid_space-xxs,
+    xs: $grid_space-xs,
+    sm: $grid_space-sm,
+    md: $grid_space-md,
+    lg: $grid_space-lg,
+    xl: $grid_space-xl,
+    xxl: $grid_space-xxl
+);
+
+// Position identifiers will be looped through and added for each item in the
+// scss map in order to determine which margin / padding direction to apply
+$position: 'all' 'vertical' 'horizontal' 'top' 'right' 'bottom' 'left';
+
+@mixin gridspace($spacing_val, $spacing_size, $type){
+  @each $current-pos in $position {
+
+    // Store the value of the current position index
+    $pos_index: index($position, $current-pos);
+
+    $style: ''; // instantiate $style so it doesn't throw warnings
+
+    // Since classes and css properties have different names, check what
+    // value is passed in the $type param to determine whether to use
+    // margin or padding
+    @if $type == 'bump'{
+      $style: 'margin';
+    } @else {
+      $style: 'padding';
+    }
+
+    // Build out the classes using the parameters passed to the mixin and
+    // use the index of $position to determine which css properties to apply
+    // our values to.
+    .#{$type}_#{$current-pos}-#{$spacing_val} {
+      @if $pos_index == 1 {
+        #{$style}: $spacing_size;
+      }
+      @else if $pos_index == 2 {
+        #{$style}-top: $spacing_size;
+        #{$style}-bottom: $spacing_size;
+      }
+      @else if $pos_index == 3 {
+        #{$style}-left: $spacing_size;
+        #{$style}-right: $spacing_size;
+      }
+      @else if $pos_index == 4 {
+        #{$style}-top: $spacing_size;
+      }
+      @else if $pos_index == 5 {
+        #{$style}-right: $spacing_size;
+      }
+      @else if $pos_index == 6 {
+        #{$style}-bottom: $spacing_size;
+      }
+      @else if $pos_index == 7 {
+        #{$style}-left: $spacing_size;
+      }
+    }
+  }
+}
+
+@each $key, $value in $spacing {
+  @include gridspace($key, $value, 'bump');
+}
+
+@each $key, $value in $spacing {
+  @include gridspace($key, $value, 'swell');
+}
+
+.bump_clear {
+  margin: 0;
+}
+
+.bump_clear-left {
+  margin-left: 0;
+}
+
+.bump_clear-right {
+  margin-right: 0;
+}
+
+.bump_clear-bottom {
+  margin-bottom: 0;
+}
+
+.bump_clear-top {
+  margin-top: 0;
+}
+
+.swell_clear {
+  padding: 0;
+}
+
+.swell_clear-left {
+  padding-left: 0;
+}
+
+.swell_clear-right {
+  padding-right: 0;
+}
+
+.swell_clear-bottom {
+  padding-bottom: 0;
+}
+
+.swell_clear-top {
+  padding-top: 0;
+}
