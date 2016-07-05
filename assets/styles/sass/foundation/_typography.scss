@@ -1,0 +1,68 @@
+///////////////
+// rem setup //
+///////////////
+
+$fontbase: 1.4rem;
+$headings_list: 'h1', 'h2', 'h3', 'h4', 'h5', 'h6';
+$headings: assign-inputs($headings_list);
+$serif: Arial, "Helvetica Neue", Helvetica, sans-serif;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: $fontbase;
+  font-family: $serif;
+}
+
+::selection {
+
+}
+
+#{$headings} {
+  &:not([class*='color']) {
+
+  }
+  &:not([class*="text-"]) {
+
+  }
+  &:not([class*='bump_bottom']):not([class*='bump_vertical']) {
+    margin-bottom: 0;
+  }
+  &:not([class*='bump_top']):not([class*='bump_vertical']) {
+    margin-top: 0;
+  }
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+h4 {
+  font-size: 1.6rem;
+}
+
+.text_center {
+  text-align: center;
+}
+
+p {
+  margin: 0;
+  + p {
+    margin-top: 2.2rem;
+  }
+}
+
+a {
+  color: initial;
+  text-decoration: none;
+}
